@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mstb_button_view"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="2dip"
+    android:layout_marginTop="2dip"
+    android:layout_marginLeft="2dip"
+    android:layout_marginRight="2dip"
+    android:layout_weight="1"
+    android:minHeight="7dip"
+    android:paddingLeft="2dip"
+    android:paddingRight="2dip"
+    android:background="@drawable/button_states"
+    android:text="2" />

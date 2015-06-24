@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="leftText" format="string" />
+    <attr name="middleText" format="string" />
+    <attr name="rightText" format="string" />
+
+    <declare-styleable name="ThreeStateToggleButton">
+        <attr name="leftText" />
+        <attr name="middleText" />
+        <attr name="rightText" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiStateToggleButton">
+        <attr name="values" format="reference"/>
+    </declare-styleable>
+    
+</resources>
