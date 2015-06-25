@@ -1,9 +1,6 @@
 package org.honorato.multistatetogglebutton;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -15,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultiStateToggleButton extends ToggleButton {
 
@@ -192,12 +192,13 @@ public class MultiStateToggleButton extends ToggleButton {
 			return;
 		}
 		button.setSelected(selected);
+		// TODO: Inherit these colors from primary/secondary colors
 		if (selected) {
 			button.setBackgroundResource(R.drawable.button_pressed);
 			button.setTextAppearance(this.context, R.style.WhiteBoldText);
 		} else {
 			button.setBackgroundResource(R.drawable.button_not_pressed);
-			button.setTextAppearance(this.context, R.style.BlackNormalText);
+			button.setTextAppearance(this.context, R.style.PrimaryNormalText);
 		}
 	}
 

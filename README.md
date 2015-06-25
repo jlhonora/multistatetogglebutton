@@ -5,6 +5,13 @@ A simple multi-state toggle button for Android.
 
 ![Example](img/example1.png)
 
+## To-Do ##
+
+- Support Material Design's button shadow.
+- Easier color styling.
+
+Any help is appreciated :)
+
 ## Usage ##
 
 ```

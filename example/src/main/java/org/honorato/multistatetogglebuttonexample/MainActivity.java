@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.honorato.multistatetogglebutton.MultiStateToggleButton;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupDynamicButton();
     }
 
     @Override
@@ -33,5 +37,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setupDynamicButton() {
+        MultiStateToggleButton mstb = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi2_id);
+        mstb.enableMultipleChoice(true);
     }
 }
