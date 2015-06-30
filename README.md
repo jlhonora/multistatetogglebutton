@@ -15,12 +15,6 @@ Any help is appreciated :)
 ## Usage ##
 
 ```
-repositories {
-    maven {
-        url 'https://dl.bintray.com/jlhonora/maven/'
-    }
-}
-
 dependencies {
     compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.2'
 }
