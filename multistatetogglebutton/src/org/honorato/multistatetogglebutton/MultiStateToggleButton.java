@@ -22,8 +22,10 @@ public class MultiStateToggleButton extends ToggleButton {
 
     private static final String KEY_BUTTON_STATES = "button_states";
     private static final String KEY_INSTANCE_STATE = "instance_state";
-    List<Button> buttons;
+
+    List<View> buttons;
     boolean mMultipleChoice = false;
+    private LinearLayout mainLayout;
 
     public MultiStateToggleButton(Context context) {
         super(context, null);
@@ -44,7 +46,7 @@ public class MultiStateToggleButton extends ToggleButton {
         CharSequence[] texts = a.getTextArray(0);
         a.recycle();
 
-        setElements(texts, new boolean[texts.length]);
+        setElements(texts, null, new boolean[texts.length]);
     }
 
     /**
@@ -80,18 +82,20 @@ public class MultiStateToggleButton extends ToggleButton {
      * initial values. Initial states are allowed, but both
      * arrays must be of the same size.
      *
-     * @param texts    An array of CharSequences for the buttons
-     * @param selected The default value for the buttons
+     * @param texts            An array of CharSequences for the buttons
+     * @param imageResourceIds an optional icon to show, either text, icon or both needs to be set.
+     * @param selected         The default value for the buttons
      */
-    public void setElements(CharSequence[] texts, boolean[] selected) {
-        // TODO: Add an exception
-        if (texts == null || texts.length < 1) {
-            Log.d(TAG, "Minimum quantity: 1");
-            return;
+    public void setElements(CharSequence[] texts, int[] imageResourceIds, boolean[] selected) {
+        final int textCount = texts != null ? texts.length : 0;
+        final int iconCount = imageResourceIds != null ? imageResourceIds.length : 0;
+        final int elementCount = Math.max(textCount, iconCount);
+        if (elementCount == 0) {
+            throw new IllegalArgumentException("neither texts nor images are setup");
         }
 
         boolean enableDefaultSelection = true;
-        if (selected == null || texts.length != selected.length) {
+        if (selected == null || elementCount != selected.length) {
             Log.d(TAG, "Invalid selection array");
             enableDefaultSelection = false;
         }
@@ -101,25 +105,82 @@ public class MultiStateToggleButton extends ToggleButton {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout mainLayout = (LinearLayout) inflater.inflate(R.layout.view_multi_state_toggle_button, this, true);
+        if (mainLayout == null) {
+            mainLayout = (LinearLayout) inflater.inflate(R.layout.view_multi_state_toggle_button, this, true);
+        }
         mainLayout.removeAllViews();
 
-        this.buttons = new ArrayList<Button>();
-        for (int i = 0; i < texts.length; i++) {
+        this.buttons = new ArrayList<>();
+        for (int i = 0; i < elementCount; i++) {
             Button b = null;
             if (i == 0) {
                 // Add a special view when there's only one element
-                if (texts.length == 1) {
+                if (elementCount == 1) {
                     b = (Button) inflater.inflate(R.layout.view_single_toggle_button, mainLayout, false);
                 } else {
                     b = (Button) inflater.inflate(R.layout.view_left_toggle_button, mainLayout, false);
                 }
-            } else if (i == texts.length - 1) {
+            } else if (i == elementCount - 1) {
                 b = (Button) inflater.inflate(R.layout.view_right_toggle_button, mainLayout, false);
             } else {
                 b = (Button) inflater.inflate(R.layout.view_center_toggle_button, mainLayout, false);
             }
-            b.setText(texts[i]);
+            b.setText(texts != null ? texts[i] : "");
+            if (imageResourceIds != null && imageResourceIds[i] != 0) {
+                b.setCompoundDrawablesWithIntrinsicBounds(imageResourceIds[i], 0, 0, 0);
+            }
+            final int position = i;
+            b.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    setValue(position);
+                }
+
+            });
+            mainLayout.addView(b);
+            if (enableDefaultSelection) {
+                setButtonState(b, selected[i]);
+            }
+            this.buttons.add(b);
+        }
+        mainLayout.setBackgroundResource(R.drawable.button_section_shape);
+    }
+
+
+    /**
+     * Set multiple buttons with the specified texts and default
+     * initial values. Initial states are allowed, but both
+     * arrays must be of the same size.
+     *
+     * @param buttons  the array of button views to use
+     * @param selected The default value for the buttons
+     */
+    public void setButtons(View[] buttons, boolean[] selected) {
+        final int elementCount = buttons.length;
+        if (elementCount == 0) {
+            throw new IllegalArgumentException("neither texts nor images are setup");
+        }
+
+        boolean enableDefaultSelection = true;
+        if (selected == null || elementCount != selected.length) {
+            Log.d(TAG, "Invalid selection array");
+            enableDefaultSelection = false;
+        }
+
+        setOrientation(LinearLayout.HORIZONTAL);
+        setGravity(Gravity.CENTER_VERTICAL);
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (mainLayout == null) {
+            mainLayout = (LinearLayout) inflater.inflate(R.layout.view_multi_state_toggle_button, this, true);
+        }
+        mainLayout.removeAllViews();
+
+        this.buttons = new ArrayList<>();
+        for (int i = 0; i < elementCount; i++) {
+            View b = buttons[i];
             final int position = i;
             b.setOnClickListener(new View.OnClickListener() {
 
@@ -140,7 +201,7 @@ public class MultiStateToggleButton extends ToggleButton {
 
     public void setElements(CharSequence[] elements) {
         int size = elements == null ? 0 : elements.length;
-        setElements(elements, new boolean[size]);
+        setElements(elements, null, new boolean[size]);
     }
 
     public void setElements(List<?> elements) {
@@ -164,7 +225,7 @@ public class MultiStateToggleButton extends ToggleButton {
 
     public void setElements(List<?> texts, boolean[] selected) {
         int size = texts == null ? 0 : texts.size();
-        setElements(texts.toArray(new String[size]), selected);
+        setElements(texts.toArray(new String[size]), null, selected);
     }
 
     public void setElements(int arrayResourceId, int selectedPosition) {
@@ -179,14 +240,14 @@ public class MultiStateToggleButton extends ToggleButton {
         }
 
         // Super
-        setElements(elements, selected);
+        setElements(elements, null, selected);
     }
 
     public void setElements(int arrayResourceId, boolean[] selected) {
-        setElements(this.getResources().getStringArray(arrayResourceId), selected);
+        setElements(this.getResources().getStringArray(arrayResourceId), null, selected);
     }
 
-    public void setButtonState(Button button, boolean selected) {
+    public void setButtonState(View button, boolean selected) {
         if (button == null) {
             return;
         }
@@ -194,10 +255,11 @@ public class MultiStateToggleButton extends ToggleButton {
         // TODO: Inherit these colors from primary/secondary colors
         if (selected) {
             button.setBackgroundResource(R.drawable.button_pressed);
-            button.setTextAppearance(this.context, R.style.WhiteBoldText);
         } else {
             button.setBackgroundResource(R.drawable.button_not_pressed);
-            button.setTextAppearance(this.context, R.style.PrimaryNormalText);
+        }
+        if (button instanceof Button) {
+            ((Button) button).setTextAppearance(this.context, selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText);
         }
     }
 
@@ -214,7 +276,7 @@ public class MultiStateToggleButton extends ToggleButton {
         for (int i = 0; i < this.buttons.size(); i++) {
             if (mMultipleChoice) {
                 if (i == position) {
-                    Button b = buttons.get(i);
+                    View b = buttons.get(i);
                     if (b != null) {
                         setButtonState(b, !b.isSelected());
                     }
@@ -245,7 +307,7 @@ public class MultiStateToggleButton extends ToggleButton {
             return;
         }
         int count = 0;
-        for (Button b : this.buttons) {
+        for (View b : this.buttons) {
             setButtonState(b, selected[count]);
             count++;
         }
