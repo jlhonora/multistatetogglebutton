@@ -64,8 +64,10 @@ Be sure to declare an array of strings called `planets_array` in your `strings.x
 
 The values can also be specified programmatically, plus other options:
 
+
 ```java
 MultiStateToggleButton button = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi_id);
+
 
 // With an array
 CharSequence[] texts = new CharSequence[]{"abc", "def"};
@@ -79,4 +81,20 @@ button.setElements(R.array.dogs_array, 1);
 
 // Multiple elements can be selected simultaneously
 button.enableMultipleChoice(true);
+```
+
+In order to use arbitrary buttons (e.g. `ImageButton`)
+
+```java
+MultiStateToggleButton button = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi_id);
+ImageButton button1 = (ImageButton) layoutInflater.inflate(R.layout.btn_image, button, false);
+button1.setImageResource(imgResourceId1);
+ImageButton button2 = (ImageButton) layoutInflater.inflate(R.layout.btn_image, button, false);
+button2.setImageResource(imgResourceId2);
+ImageButton button3 = (ImageButton) layoutInflater.inflate(R.layout.btn_image, button, false);
+button3.setImageResource(imgResourceI3);
+
+View[] buttons = new View[] {button1, button2, button3};
+button.setButtons(buttons, new boolean[buttons.length]);
+
 ```
