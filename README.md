@@ -16,7 +16,7 @@ Any help is appreciated :)
 
 ```
 dependencies {
-    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.2'
+    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.3'
 }
 ```
 
