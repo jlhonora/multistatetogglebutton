@@ -18,19 +18,19 @@
     </style>
 
     <style name="WhiteBoldText" parent="@android:style/Widget">
-        <item name="android:textColor">@color/button_secondary_color</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="PrimaryNormalText" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">@color/button_primary_color</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="ToggleStyle">
         <item name="android:padding">@dimen/button_text_padding</item>
-        <item name="android:textColor">@color/button_primary_color</item>
-        <item name="android:textColorSecondary">@color/button_secondary_color</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorControlNormal</item>
         <item name="android:minHeight">@dimen/button_min_height</item>
     </style>
 

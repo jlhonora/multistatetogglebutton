@@ -17,7 +17,7 @@
     <org.honorato.multistatetogglebutton.MultiStateToggleButton
         android:id="@+id/mstb_multi2_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dip"
         android:layout_marginTop="10dip"
         android:entries="@array/dogs_array" />
 
