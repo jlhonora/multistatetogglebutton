@@ -13,7 +13,7 @@ def gitSSHUrl = 'git@github.com:jlhonora/MultiStateToggleButton.git'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 11
@@ -88,7 +88,7 @@ install {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
 }
 
 task sourcesJar(type: Jar) {
