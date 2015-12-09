@@ -112,7 +112,7 @@ public class MultiStateToggleButton extends ToggleButton {
 
         this.buttons = new ArrayList<>();
         for (int i = 0; i < elementCount; i++) {
-            Button b = null;
+            Button b;
             if (i == 0) {
                 // Add a special view when there's only one element
                 if (elementCount == 1) {
@@ -220,11 +220,14 @@ public class MultiStateToggleButton extends ToggleButton {
         if (index != -1 && index < size) {
             selectedArray[index] = true;
         }
-        setElements(elements, new boolean[size]);
+        setElements(elements, selectedArray);
     }
 
     public void setElements(List<?> texts, boolean[] selected) {
-        int size = texts == null ? 0 : texts.size();
+        if (texts == null) {
+            texts = new ArrayList<>(0);
+        }
+        int size = texts.size();
         setElements(texts.toArray(new String[size]), null, selected);
     }
 
@@ -252,14 +255,14 @@ public class MultiStateToggleButton extends ToggleButton {
             return;
         }
         button.setSelected(selected);
-        // TODO: Inherit these colors from primary/secondary colors
         if (selected) {
             button.setBackgroundResource(R.drawable.button_pressed);
         } else {
             button.setBackgroundResource(R.drawable.button_not_pressed);
         }
         if (button instanceof Button) {
-            ((Button) button).setTextAppearance(this.context, selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText);
+            int style = selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText;
+            ((Button) button).setTextAppearance(style);
         }
     }
 

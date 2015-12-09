@@ -26,5 +26,5 @@ dependencies {
 
     // Use this if you have a local copy of the repo, or if
     // you use your own fork
-    //compile project(':multistatetogglebutton')
+    // compile project(':multistatetogglebutton')
 }

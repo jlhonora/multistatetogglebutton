@@ -16,7 +16,7 @@ Any help is appreciated :)
 
 ```
 dependencies {
-    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.3'
+    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.4'
 }
 ```
 
@@ -37,6 +37,15 @@ Then in your activity's XML:
 		android:entries="@array/planets_array" />
 
 </LinearLayout>
+```
+
+Colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`. You can modify them in your theme:
+
+```xml
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">#3F51B5</item>
+    <item name="colorControlNormal">#FFFFFF</item>
+</style>
 ```
 
 If you need a callback for when the value changes then add this to your code:
