@@ -39,7 +39,9 @@ Then in your activity's XML:
 </LinearLayout>
 ```
 
-Colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`. You can modify them in your theme:
+### Colors
+
+For Lollipop onwards, colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`. You can modify them in your theme:
 
 ```xml
 <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -47,6 +49,29 @@ Colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`. You c
     <item name="colorControlNormal">#FFFFFF</item>
 </style>
 ```
+
+For pre-Lollipop devices, you'll have to modify the colors directly in the library, due to a bug in Android ([source](https://code.google.com/p/android/issues/detail?id=26251)). You'll have to:
+
+- Clone this project
+- Edit the `colors.xml` file:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_primary_color">#3F51B5</color>
+    <color name="button_secondary_color">#FFFFFF</color>
+</resources>
+```
+
+- Compile the lib directly:
+
+```
+compile project(':multistatetogglebutton')
+```
+
+If you have a better idea on how to do this, contributions are welcome.
+
+## Others
 
 If you need a callback for when the value changes then add this to your code:
 

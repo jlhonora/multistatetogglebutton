@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def mVersionCode = 5
-def mVersionName = "0.1.4"
+def mVersionCode = 6
+def mVersionName = "0.1.5"
 group = "org.honorato.multistatetogglebutton"
 version = mVersionName
 
