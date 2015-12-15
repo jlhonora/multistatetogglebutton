@@ -1,3 +1,5 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MultiStateToggleButton-green.svg?style=true)](https://android-arsenal.com/details/1/2906)
+
 Multi State Toggle Button
 =========================
 
