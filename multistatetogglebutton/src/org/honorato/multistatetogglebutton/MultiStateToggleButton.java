@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -262,7 +263,7 @@ public class MultiStateToggleButton extends ToggleButton {
         }
         if (button instanceof Button) {
             int style = selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText;
-            ((Button) button).setTextAppearance(style);
+            ((AppCompatButton) button).setTextAppearance(this.getContext(), style);
         }
     }
 
