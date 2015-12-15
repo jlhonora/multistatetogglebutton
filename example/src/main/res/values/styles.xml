@@ -1,8 +1,10 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#3F51B5</item>
-        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorPrimary">@color/button_primary_color</item>
+        <item name="colorControlNormal">@color/button_secondary_color</item>
+        <item name="mstbPrimaryColor">@color/button_primary_color</item>
+        <item name="mstbSecondaryColor">@color/button_secondary_color</item>
     </style>
 
 </resources>
