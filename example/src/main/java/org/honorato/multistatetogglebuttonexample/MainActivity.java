@@ -1,7 +1,7 @@
 package org.honorato.multistatetogglebuttonexample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,5 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public void setupDynamicButton() {
         MultiStateToggleButton mstb = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi2_id);
         mstb.enableMultipleChoice(true);
+        mstb.setColorRes(R.color.mstb_gray, R.color.mstb_green);
     }
 }

@@ -2,9 +2,11 @@ package org.honorato.multistatetogglebutton;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.ColorRes;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,14 +36,15 @@ public class MultiStateToggleButton extends ToggleButton {
 
     public MultiStateToggleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        int[] set = {
-                android.R.attr.entries
-        };
-        TypedArray a = context.obtainStyledAttributes(attrs, set);
-        CharSequence[] texts = a.getTextArray(0);
-        a.recycle();
-
-        setElements(texts, null, new boolean[texts.length]);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiStateToggleButton, 0, 0);
+        try {
+            CharSequence[] texts = a.getTextArray(R.styleable.MultiStateToggleButton_values);
+            colorPressed = a.getColor(R.styleable.MultiStateToggleButton_mstbPrimaryColor, 0);
+            colorNotPressed = a.getColor(R.styleable.MultiStateToggleButton_mstbSecondaryColor, 0);
+            setElements(texts, null, new boolean[texts.length]);
+        } finally {
+            a.recycle();
+        }
     }
 
     /**
@@ -250,14 +253,16 @@ public class MultiStateToggleButton extends ToggleButton {
             return;
         }
         button.setSelected(selected);
-        if (selected) {
-            button.setBackgroundResource(R.drawable.button_pressed);
-        } else {
-            button.setBackgroundResource(R.drawable.button_not_pressed);
+        button.setBackgroundResource(selected ? R.drawable.button_pressed : R.drawable.button_not_pressed);
+        if (colorNotPressed != 0 || colorPressed != 0) {
+            button.setBackgroundColor(selected ? colorPressed : colorNotPressed);
         }
         if (button instanceof Button) {
             int style = selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText;
             ((AppCompatButton) button).setTextAppearance(this.getContext(), style);
+            if (colorPressed != 0 || colorNotPressed != 0) {
+                ((AppCompatButton) button).setTextColor(!selected ? colorPressed : colorNotPressed);
+            }
         }
     }
 
@@ -308,6 +313,32 @@ public class MultiStateToggleButton extends ToggleButton {
         for (View b : this.buttons) {
             setButtonState(b, selected[count]);
             count++;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setColorRes(@ColorRes int colorPressed, @ColorRes int colorNotPressed) {
+        Resources res = context.getResources();
+        setColors(res.getColor(colorPressed), res.getColor(colorNotPressed));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setColors(int colorPressed, int colorNotPressed) {
+        this.colorPressed = colorPressed;
+        this.colorNotPressed = colorNotPressed;
+        refresh();
+    }
+
+    private void refresh() {
+        boolean[] states = getStates();
+        for (int i = 0; i < states.length; i++) {
+            setButtonState(buttons.get(i), states[i]);
         }
     }
 }

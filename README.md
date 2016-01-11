@@ -10,7 +10,6 @@ A simple multi-state toggle button for Android.
 ## To-Do ##
 
 - Support Material Design's button shadow.
-- Easier color styling.
 
 Any help is appreciated :)
 
@@ -26,7 +25,7 @@ Then in your activity's XML:
 
 ```xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -36,43 +35,21 @@ Then in your activity's XML:
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip"
-		android:entries="@array/planets_array" />
-
+		mstb:values="@array/planets_array"
+		mstb:mstbPrimaryColor="@color/gray"
+        mstb:mstbSecondaryColor="@color/blue"/>
 </LinearLayout>
 ```
 
 ### Colors
 
-For Lollipop onwards, colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`. You can modify them in your theme:
-
-```xml
-<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <item name="colorPrimary">#3F51B5</item>
-    <item name="colorControlNormal">#FFFFFF</item>
-</style>
+You can change change colors via xml (see above) or programmatically :
+```java
+MultiStateToggleButton button = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi_id);
+button.setColorRes(R.color.color_pressed, R.color.color_released);
 ```
 
-For pre-Lollipop devices, you'll have to modify the colors directly in the library, due to a bug in Android ([source](https://code.google.com/p/android/issues/detail?id=26251)). You'll have to:
-
-- Clone this project
-- Edit the `colors.xml` file:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="button_primary_color">#3F51B5</color>
-    <color name="button_secondary_color">#FFFFFF</color>
-</resources>
-```
-
-- Compile the lib directly:
-
-```
-compile project(':multistatetogglebutton')
-```
-
-If you have a better idea on how to do this, contributions are welcome.
-
+If you don't specify any values, default colors are taken from `?attr:colorPrimary` and `?attr:colorControlNormal`
 ## Others
 
 If you need a callback for when the value changes then add this to your code:
