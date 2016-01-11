@@ -1,6 +1,7 @@
 package org.honorato.multistatetogglebutton;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -44,7 +45,10 @@ public abstract class ToggleButton extends LinearLayout {
      * @param colorPressed    color resource ID for the pressed button(s)
      * @param colorNotPressed color resource ID for the released button(s)
      */
-    public abstract void setColorRes(@ColorRes int colorPressed, @ColorRes int colorNotPressed);
+    public void setColorRes(@ColorRes int colorPressed, @ColorRes int colorNotPressed) {
+        Resources res = context.getResources();
+        setColors(res.getColor(colorPressed), res.getColor(colorNotPressed));
+    }
 
     /**
      * Color values are in the form 0xAARRGGBB
@@ -52,6 +56,9 @@ public abstract class ToggleButton extends LinearLayout {
      * @param colorPressed    resolved color for the pressed button(s)
      * @param colorNotPressed resolved color for the released button(s)
      */
-    public abstract void setColors(int colorPressed, int colorNotPressed);
+    public void setColors(int colorPressed, int colorNotPressed) {
+        this.colorPressed = colorPressed;
+        this.colorNotPressed = colorNotPressed;
+    }
 
 }

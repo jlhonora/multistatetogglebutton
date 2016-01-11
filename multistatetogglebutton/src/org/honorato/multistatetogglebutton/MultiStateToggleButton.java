@@ -320,18 +320,8 @@ public class MultiStateToggleButton extends ToggleButton {
      * {@inheritDoc}
      */
     @Override
-    public void setColorRes(@ColorRes int colorPressed, @ColorRes int colorNotPressed) {
-        Resources res = context.getResources();
-        setColors(res.getColor(colorPressed), res.getColor(colorNotPressed));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setColors(int colorPressed, int colorNotPressed) {
-        this.colorPressed = colorPressed;
-        this.colorNotPressed = colorNotPressed;
+        super.setColors(colorPressed, colorNotPressed);
         refresh();
     }
 
