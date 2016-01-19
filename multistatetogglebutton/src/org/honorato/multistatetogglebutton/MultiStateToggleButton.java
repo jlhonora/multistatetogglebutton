@@ -1,12 +1,9 @@
 package org.honorato.multistatetogglebutton;
 
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorRes;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -73,6 +70,19 @@ public class MultiStateToggleButton extends ToggleButton {
             state = bundle.getParcelable(KEY_INSTANCE_STATE);
         }
         super.onRestoreInstanceState(state);
+    }
+
+    /**
+     * Set the enabled state of this MultiStateToggleButton, including all of its child buttons.
+     *
+     * @param enabled True if this view is enabled, false otherwise.
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            child.setEnabled(enabled);
+        }
     }
 
     /**
