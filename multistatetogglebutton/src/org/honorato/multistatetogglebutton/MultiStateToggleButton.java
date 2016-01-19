@@ -72,6 +72,11 @@ public class MultiStateToggleButton extends ToggleButton {
         super.onRestoreInstanceState(state);
     }
 
+    /**
+     * Set the enabled state of this MultiStateToggleButton, including all of its child buttons.
+     *
+     * @param enabled True if this view is enabled, false otherwise.
+     */
     @Override
     public void setEnabled(boolean enabled) {
         for (int i = 0; i < getChildCount(); i++) {
