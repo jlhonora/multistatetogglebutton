@@ -74,7 +74,7 @@ install {
                     developer {
                         id 'jlhonora'
                         name 'Jose Luis Honorato'
-                        email 'jlhonora@ing.puc.cl'
+                        email 'joseluishonorato@gmail.com'
                     }
                 }
                 scm {
