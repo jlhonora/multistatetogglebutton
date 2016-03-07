@@ -4,5 +4,11 @@
         <attr name="values" format="reference" />
         <attr name="mstbPrimaryColor" format="reference" />
         <attr name="mstbSecondaryColor" format="reference" />
+        <attr name="mstbColorPressedText" format="reference" />
+        <attr name="mstbColorPressedBackground" format="reference" />
+        <attr name="mstbColorPressedBackgroundResource" format="reference" />
+        <attr name="mstbColorNotPressedText" format="reference" />
+        <attr name="mstbColorNotPressedBackground" format="reference" />
+        <attr name="mstbColorNotPressedBackgroundResource" format="reference" />
     </declare-styleable>
 </resources>
