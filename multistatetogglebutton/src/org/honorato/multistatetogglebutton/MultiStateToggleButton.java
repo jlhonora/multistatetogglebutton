@@ -38,6 +38,12 @@ public class MultiStateToggleButton extends ToggleButton {
             CharSequence[] texts = a.getTextArray(R.styleable.MultiStateToggleButton_values);
             colorPressed = a.getColor(R.styleable.MultiStateToggleButton_mstbPrimaryColor, 0);
             colorNotPressed = a.getColor(R.styleable.MultiStateToggleButton_mstbSecondaryColor, 0);
+            colorPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorPressedText, 0);
+            colorPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorPressedBackground, 0);
+            pressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorPressedBackgroundResource, 0);
+            colorNotPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedText, 0);
+            colorNotPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackground, 0);
+            notPressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackgroundResource, 0);
             setElements(texts, null, new boolean[texts.length]);
         } finally {
             a.recycle();
@@ -266,12 +272,19 @@ public class MultiStateToggleButton extends ToggleButton {
         button.setBackgroundResource(selected ? R.drawable.button_pressed : R.drawable.button_not_pressed);
         if (colorNotPressed != 0 || colorPressed != 0) {
             button.setBackgroundColor(selected ? colorPressed : colorNotPressed);
+        } else if(colorNotPressedBackground != 0 || colorNotPressedBackground != 0) {
+          button.setBackgroundColor(selected ? colorPressedBackground : colorNotPressedBackground);
         }
         if (button instanceof Button) {
             int style = selected ? R.style.WhiteBoldText : R.style.PrimaryNormalText;
             ((AppCompatButton) button).setTextAppearance(this.getContext(), style);
             if (colorPressed != 0 || colorNotPressed != 0) {
                 ((AppCompatButton) button).setTextColor(!selected ? colorPressed : colorNotPressed);
+            } else if(colorPressedText != 0 || colorNotPressedText != 0) {
+              ((AppCompatButton) button).setTextColor(selected ? colorPressedText : colorNotPressedText);
+            }
+            if(pressedBackgroundResource != 0 || notPressedBackgroundResource != 0) {
+              button.setBackgroundResource(selected ? pressedBackgroundResource : notPressedBackgroundResource);
             }
         }
     }
