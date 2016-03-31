@@ -10,5 +10,12 @@
         <attr name="mstbColorNotPressedText" format="reference" />
         <attr name="mstbColorNotPressedBackground" format="reference" />
         <attr name="mstbColorNotPressedBackgroundResource" format="reference" />
+        <attr name="mstbFontPadding" format="boolean" />
+        <attr name="mstbTextSize" format="dimension" />
+        <attr name="mstbPadding" format="dimension" />
+        <attr name="mstbPaddingLeft" format="dimension" />
+        <attr name="mstbPaddingRight" format="dimension" />
+        <attr name="mstbPaddingBottom" format="dimension" />
+        <attr name="mstbPaddingTop" format="dimension" />
     </declare-styleable>
 </resources>

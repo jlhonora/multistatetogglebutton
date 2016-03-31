@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,10 @@ public class MultiStateToggleButton extends ToggleButton {
     List<View> buttons;
     boolean mMultipleChoice = false;
     private LinearLayout mainLayout;
+    private boolean mFontPadding;
+    private float mTextSize;
+    private float mButtonPadding = -1;
+    private float[]  mButtonPaddingArray = new float[]{-1,-1,-1,-1};
 
     public MultiStateToggleButton(Context context) {
         super(context, null);
@@ -44,6 +49,14 @@ public class MultiStateToggleButton extends ToggleButton {
             colorNotPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedText, 0);
             colorNotPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackground, 0);
             notPressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackgroundResource, 0);
+            mFontPadding = a.getBoolean(R.styleable.MultiStateToggleButton_mstbFontPadding, true);
+            mTextSize = (int) (a.getDimension(R.styleable.MultiStateToggleButton_mstbTextSize,-1) / getResources().getDisplayMetrics().density);
+            mButtonPadding =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPadding,-1)/ getResources().getDisplayMetrics().density;
+            mButtonPaddingArray[0] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingLeft,-1)/ getResources().getDisplayMetrics().density;
+            mButtonPaddingArray[1] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingTop,-1)/ getResources().getDisplayMetrics().density;
+            mButtonPaddingArray[2] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingRight,-1)/ getResources().getDisplayMetrics().density;
+            mButtonPaddingArray[3] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingBottom,-1)/ getResources().getDisplayMetrics().density;
+
             setElements(texts, null, new boolean[texts.length]);
         } finally {
             a.recycle();
@@ -127,6 +140,7 @@ public class MultiStateToggleButton extends ToggleButton {
         this.buttons = new ArrayList<>();
         for (int i = 0; i < elementCount; i++) {
             Button b;
+
             if (i == 0) {
                 // Add a special view when there's only one element
                 if (elementCount == 1) {
@@ -140,6 +154,14 @@ public class MultiStateToggleButton extends ToggleButton {
                 b = (Button) inflater.inflate(R.layout.view_center_toggle_button, mainLayout, false);
             }
             b.setText(texts != null ? texts[i] : "");
+            b.setIncludeFontPadding(mFontPadding);
+            if(mTextSize > 0) b.setTextSize(TypedValue.COMPLEX_UNIT_DIP,mTextSize);
+            if(mButtonPadding >= 0) b.setPadding((int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding);
+            if(mButtonPaddingArray[0] >0) b.setPadding((int) mButtonPaddingArray[0], (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+            if(mButtonPaddingArray[1] > 0) b.setPadding((int) b.getPaddingLeft(), (int) mButtonPaddingArray[1], (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+            if(mButtonPaddingArray[2] > 0) b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) mButtonPaddingArray[2], (int) b.getPaddingBottom());
+            if(mButtonPaddingArray[3] > 0) b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) mButtonPaddingArray[3] );
+
             if (imageResourceIds != null && imageResourceIds[i] != 0) {
                 b.setCompoundDrawablesWithIntrinsicBounds(imageResourceIds[i], 0, 0, 0);
             }
@@ -156,6 +178,7 @@ public class MultiStateToggleButton extends ToggleButton {
             if (enableDefaultSelection) {
                 setButtonState(b, selected[i]);
             }
+
             this.buttons.add(b);
         }
         mainLayout.setBackgroundResource(R.drawable.button_section_shape);

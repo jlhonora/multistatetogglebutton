@@ -18,4 +18,12 @@
         <item>Pup</item>
         <item>Golden</item>
     </string-array>
+
+    <string-array name="button_array">
+        <item>On</item>
+        <item>Off</item>
+        <item>Switch</item>
+        <item>Toggle</item>
+        <item>Click</item>
+    </string-array>
 </resources>

@@ -27,10 +27,15 @@
     <org.honorato.multistatetogglebutton.MultiStateToggleButton
         android:id="@+id/mstb_multi3_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        mstb:mstbPaddingTop="0dp"
+        mstb:mstbPaddingBottom="0dp"
+        mstb:mstbFontPadding="false"
+        mstb:mstbTextSize="8sp"
         android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
         mstb:mstbPrimaryColor="@color/button_primary_color"
         mstb:mstbSecondaryColor="@color/mstb_gray"
-        mstb:values="@array/dogs_array" />
+        mstb:values="@array/button_array" />
 
 </LinearLayout>
