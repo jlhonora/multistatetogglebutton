@@ -28,7 +28,7 @@ public class MultiStateToggleButton extends ToggleButton {
     boolean mMultipleChoice = false;
     private LinearLayout mainLayout;
     private boolean mFontPadding;
-    private float mTextSize;
+    private String mTextSize;
     private float mButtonPadding = -1;
     private float[]  mButtonPaddingArray = new float[]{-1,-1,-1,-1};
 
@@ -39,6 +39,12 @@ public class MultiStateToggleButton extends ToggleButton {
     public MultiStateToggleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiStateToggleButton, 0, 0);
+
+
+        mTextSize = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "textSize");
+        mFontPadding = attrs.getAttributeBooleanValue("http://schemas.android.com/apk/res/android","includeFontPadding",true);
+        Log.i(TAG,"FONTpadding " + mFontPadding);
+
         try {
             CharSequence[] texts = a.getTextArray(R.styleable.MultiStateToggleButton_values);
             colorPressed = a.getColor(R.styleable.MultiStateToggleButton_mstbPrimaryColor, 0);
@@ -49,8 +55,6 @@ public class MultiStateToggleButton extends ToggleButton {
             colorNotPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedText, 0);
             colorNotPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackground, 0);
             notPressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackgroundResource, 0);
-            mFontPadding = a.getBoolean(R.styleable.MultiStateToggleButton_mstbFontPadding, true);
-            mTextSize = (int) (a.getDimension(R.styleable.MultiStateToggleButton_mstbTextSize,-1) / getResources().getDisplayMetrics().density);
             mButtonPadding =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPadding,-1)/ getResources().getDisplayMetrics().density;
             mButtonPaddingArray[0] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingLeft,-1)/ getResources().getDisplayMetrics().density;
             mButtonPaddingArray[1] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingTop,-1)/ getResources().getDisplayMetrics().density;
@@ -155,7 +159,7 @@ public class MultiStateToggleButton extends ToggleButton {
             }
             b.setText(texts != null ? texts[i] : "");
             b.setIncludeFontPadding(mFontPadding);
-            if(mTextSize > 0) b.setTextSize(TypedValue.COMPLEX_UNIT_DIP,mTextSize);
+            setTextSize(b);
             if(mButtonPadding >= 0) b.setPadding((int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding);
             if(mButtonPaddingArray[0] >0) b.setPadding((int) mButtonPaddingArray[0], (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) b.getPaddingBottom());
             if(mButtonPaddingArray[1] > 0) b.setPadding((int) b.getPaddingLeft(), (int) mButtonPaddingArray[1], (int) b.getPaddingRight(), (int) b.getPaddingBottom());
@@ -375,6 +379,22 @@ public class MultiStateToggleButton extends ToggleButton {
         boolean[] states = getStates();
         for (int i = 0; i < states.length; i++) {
             setButtonState(buttons.get(i), states[i]);
+        }
+    }
+
+
+    private void setTextSize(Button b){
+        if(mTextSize == null || mTextSize.isEmpty()){
+                return;
+        }
+        if(mTextSize.contains("dip")){
+            b.setTextSize(TypedValue.COMPLEX_UNIT_DIP,Integer.getInteger(mTextSize.substring(0,mTextSize.length()-5)));
+        }
+        else if(mTextSize.contains("dp")){
+            b.setTextSize(TypedValue.COMPLEX_UNIT_DIP,Integer.getInteger(mTextSize.substring(0,mTextSize.length()-4)));
+        }
+        else if(mTextSize.contains("sp")){
+            b.setTextSize(TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(mTextSize.substring(0,mTextSize.length()-4)));
         }
     }
 }
