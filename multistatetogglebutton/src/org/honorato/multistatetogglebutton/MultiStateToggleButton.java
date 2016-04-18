@@ -29,8 +29,8 @@ public class MultiStateToggleButton extends ToggleButton {
     private LinearLayout mainLayout;
     private boolean mFontPadding;
     private String mTextSize;
-    private float mButtonPadding = -1;
-    private float[]  mButtonPaddingArray = new float[]{-1,-1,-1,-1};
+    private String mButtonPadding;
+    private String[]  mButtonPaddingArray = new String[4];
 
     public MultiStateToggleButton(Context context) {
         super(context, null);
@@ -43,7 +43,13 @@ public class MultiStateToggleButton extends ToggleButton {
 
         mTextSize = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "textSize");
         mFontPadding = attrs.getAttributeBooleanValue("http://schemas.android.com/apk/res/android","includeFontPadding",true);
-        Log.i(TAG,"FONTpadding " + mFontPadding);
+        mButtonPadding =  attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "padding");
+        mButtonPaddingArray = new String[]{mButtonPadding,mButtonPadding,mButtonPadding,mButtonPadding};
+        //Overwrite padding elements if present
+        mButtonPaddingArray[0] =  attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "paddingLeft");
+        mButtonPaddingArray[1] =  attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "paddingTop");
+        mButtonPaddingArray[2] =  attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "paddingRight");
+        mButtonPaddingArray[3] =  attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "paddingBottom");
 
         try {
             CharSequence[] texts = a.getTextArray(R.styleable.MultiStateToggleButton_values);
@@ -55,11 +61,6 @@ public class MultiStateToggleButton extends ToggleButton {
             colorNotPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedText, 0);
             colorNotPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackground, 0);
             notPressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackgroundResource, 0);
-            mButtonPadding =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPadding,-1)/ getResources().getDisplayMetrics().density;
-            mButtonPaddingArray[0] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingLeft,-1)/ getResources().getDisplayMetrics().density;
-            mButtonPaddingArray[1] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingTop,-1)/ getResources().getDisplayMetrics().density;
-            mButtonPaddingArray[2] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingRight,-1)/ getResources().getDisplayMetrics().density;
-            mButtonPaddingArray[3] =  a.getDimension(R.styleable.MultiStateToggleButton_mstbPaddingBottom,-1)/ getResources().getDisplayMetrics().density;
 
             setElements(texts, null, new boolean[texts.length]);
         } finally {
@@ -160,12 +161,11 @@ public class MultiStateToggleButton extends ToggleButton {
             b.setText(texts != null ? texts[i] : "");
             b.setIncludeFontPadding(mFontPadding);
             setTextSize(b);
-            if(mButtonPadding >= 0) b.setPadding((int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding, (int) mButtonPadding);
-            if(mButtonPaddingArray[0] >0) b.setPadding((int) mButtonPaddingArray[0], (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) b.getPaddingBottom());
-            if(mButtonPaddingArray[1] > 0) b.setPadding((int) b.getPaddingLeft(), (int) mButtonPaddingArray[1], (int) b.getPaddingRight(), (int) b.getPaddingBottom());
-            if(mButtonPaddingArray[2] > 0) b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) mButtonPaddingArray[2], (int) b.getPaddingBottom());
-            if(mButtonPaddingArray[3] > 0) b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) mButtonPaddingArray[3] );
-
+            setButtonPaddingBottom(b);
+            setButtonPaddingTop(b);
+            //Left and right padding only when meaningfull
+            if(i == 0) setButtonPaddingLeft(b);
+            if(i == elementCount-1) setButtonPaddingRight(b);
             if (imageResourceIds != null && imageResourceIds[i] != 0) {
                 b.setCompoundDrawablesWithIntrinsicBounds(imageResourceIds[i], 0, 0, 0);
             }
@@ -395,6 +395,71 @@ public class MultiStateToggleButton extends ToggleButton {
         }
         else if(mTextSize.contains("sp")){
             b.setTextSize(TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(mTextSize.substring(0,mTextSize.length()-4)));
+        }
+    }
+
+
+    private void setButtonPaddingLeft(Button b){
+        if(mButtonPaddingArray[0] == null || mButtonPaddingArray[0].isEmpty()){
+            return;
+        }
+        float scale = getResources().getDisplayMetrics().density;
+
+        if(mButtonPaddingArray[0].contains("dip")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[0].substring(0,mButtonPaddingArray[0].length()-5))*scale + 0.5f);
+            b.setPadding(dpAsPixels, (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+        }
+        else if(mButtonPaddingArray[0].contains("dp")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[0].substring(0,mButtonPaddingArray[0].length()-4))*scale + 0.5f);
+            b.setPadding(dpAsPixels, (int) b.getPaddingTop(), (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+        }
+    }
+
+    private void setButtonPaddingTop(Button b){
+        if(mButtonPaddingArray[1] == null || mButtonPaddingArray[1].isEmpty()){
+            return;
+        }
+        float scale = getResources().getDisplayMetrics().density;
+
+        if(mButtonPaddingArray[1].contains("dip")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[1].substring(0,mButtonPaddingArray[1].length()-5))*scale + 0.5f);
+            b.setPadding(b.getPaddingLeft(), dpAsPixels, (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+        }
+        else if(mButtonPaddingArray[1].contains("dp")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[1].substring(0,mButtonPaddingArray[1].length()-4))*scale + 0.5f);
+            b.setPadding(b.getPaddingLeft(), dpAsPixels, (int) b.getPaddingRight(), (int) b.getPaddingBottom());
+        }
+    }
+
+    private void setButtonPaddingRight(Button b){
+        if(mButtonPaddingArray[2] == null || mButtonPaddingArray[2].isEmpty()){
+            return;
+        }
+        float scale = getResources().getDisplayMetrics().density;
+
+        if(mButtonPaddingArray[2].contains("dip")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[2].substring(0,mButtonPaddingArray[2].length()-5))*scale + 0.5f);
+            b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), dpAsPixels, (int) b.getPaddingBottom());
+        }
+        else if(mButtonPaddingArray[2].contains("dp")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[2].substring(0,mButtonPaddingArray[2].length()-4))*scale + 0.5f);
+            b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), dpAsPixels, (int) b.getPaddingBottom());
+        }
+    }
+
+    private void setButtonPaddingBottom(Button b){
+        if(mButtonPaddingArray[3] == null || mButtonPaddingArray[3].isEmpty()){
+            return;
+        }
+        float scale = getResources().getDisplayMetrics().density;
+
+        if(mButtonPaddingArray[3].contains("dip")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[3].substring(0,mButtonPaddingArray[3].length()-5))*scale + 0.5f);
+            b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) b.getPaddingRight(), dpAsPixels);
+        }
+        else if(mButtonPaddingArray[3].contains("dp")){
+            int dpAsPixels = (int) (Integer.getInteger(mButtonPaddingArray[3].substring(0,mButtonPaddingArray[3].length()-4))*scale + 0.5f);
+            b.setPadding((int) b.getPaddingLeft(), (int) b.getPaddingTop(), (int) b.getPaddingRight(), dpAsPixels);
         }
     }
 }

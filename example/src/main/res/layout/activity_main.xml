@@ -28,6 +28,7 @@
         android:id="@+id/mstb_multi3_id"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:padding="1dp"
         mstb:mstbPaddingTop="0dp"
         mstb:mstbPaddingBottom="0dp"
         android:includeFontPadding="false"
@@ -37,5 +38,4 @@
         mstb:mstbPrimaryColor="@color/button_primary_color"
         mstb:mstbSecondaryColor="@color/mstb_gray"
         mstb:values="@array/button_array" />
-
 </LinearLayout>
