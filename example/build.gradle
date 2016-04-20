@@ -22,9 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.1'
+    //compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.1'
 
     // Use this if you have a local copy of the repo, or if
     // you use your own fork
-    // compile project(':multistatetogglebutton')
+     compile project(':multistatetogglebutton')
 }
