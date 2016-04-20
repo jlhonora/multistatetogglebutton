@@ -23,7 +23,5 @@
         <item>On</item>
         <item>Off</item>
         <item>Switch</item>
-        <item>Toggle</item>
-        <item>Click</item>
     </string-array>
 </resources>
