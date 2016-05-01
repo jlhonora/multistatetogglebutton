@@ -42,6 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public void setupDynamicButton() {
         MultiStateToggleButton mstb = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi2_id);
         mstb.enableMultipleChoice(true);
-        mstb.setColors(R.color.mstb_gray, R.color.mstb_green);
+        mstb.setColorRes(R.color.mstb_gray, R.color.mstb_green);
     }
 }
