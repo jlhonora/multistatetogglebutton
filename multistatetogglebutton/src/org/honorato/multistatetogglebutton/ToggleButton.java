@@ -1,6 +1,7 @@
 package org.honorato.multistatetogglebutton;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
@@ -17,7 +18,7 @@ public abstract class ToggleButton extends LinearLayout {
 
     OnValueChangedListener listener;
     Context context;
-    int colorPressed, colorNotPressed; // Resolved colors (format 0xAARRGGBB)
+    @ColorInt int colorPressed, colorNotPressed; // Resolved colors (format 0xAARRGGBB)
     int colorPressedText, colorPressedBackground;
     int colorNotPressedText, colorNotPressedBackground;
     int pressedBackgroundResource, notPressedBackgroundResource;
@@ -59,7 +60,7 @@ public abstract class ToggleButton extends LinearLayout {
      * @param colorPressed    resolved color for the pressed button(s)
      * @param colorNotPressed resolved color for the released button(s)
      */
-    public void setColors(int colorPressed, int colorNotPressed) {
+    public void setColors(@ColorInt int colorPressed, @ColorInt int colorNotPressed) {
         this.colorPressed = colorPressed;
         this.colorNotPressed = colorNotPressed;
     }
@@ -80,7 +81,7 @@ public abstract class ToggleButton extends LinearLayout {
      * @param colorPressedText  resolved color for the pressed button's text
      * @param colorPressedBackground  resolved color for the pressed button's background
      */
-    public void setPressedColors(int colorPressedText, int colorPressedBackground) {
+    public void setPressedColors(@ColorInt int colorPressedText, @ColorInt int colorPressedBackground) {
         this.colorPressedText = colorPressedText;
         this.colorPressedBackground = colorPressedBackground;
     }
