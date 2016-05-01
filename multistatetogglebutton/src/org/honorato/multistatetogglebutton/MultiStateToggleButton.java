@@ -20,11 +20,27 @@ public class MultiStateToggleButton extends ToggleButton {
 
     private static final String TAG = MultiStateToggleButton.class.getSimpleName();
 
-    private static final String KEY_BUTTON_STATES = "button_states";
+    private static final String KEY_BUTTON_STATES  = "button_states";
     private static final String KEY_INSTANCE_STATE = "instance_state";
 
+    /**
+     * A list of rendered buttons. Used to get state, among others
+     */
     List<View> buttons;
+
+    /**
+     * The specified texts
+     */
+    CharSequence[]   texts;
+
+    /**
+     * If true, multiple buttons can be pressed at the same time
+     */
     boolean mMultipleChoice = false;
+
+    /**
+     * The layout containing all buttons
+     */
     private LinearLayout mainLayout;
 
     public MultiStateToggleButton(Context context) {
@@ -101,6 +117,7 @@ public class MultiStateToggleButton extends ToggleButton {
      * @param selected         The default value for the buttons
      */
     public void setElements(CharSequence[] texts, int[] imageResourceIds, boolean[] selected) {
+        this.texts = texts;
         final int textCount = texts != null ? texts.length : 0;
         final int iconCount = imageResourceIds != null ? imageResourceIds.length : 0;
         final int elementCount = Math.max(textCount, iconCount);
@@ -161,6 +178,12 @@ public class MultiStateToggleButton extends ToggleButton {
         mainLayout.setBackgroundResource(R.drawable.button_section_shape);
     }
 
+    /**
+     * @return An array of the buttons' text
+     */
+    public CharSequence[] getTexts() {
+        return this.texts;
+    }
 
     /**
      * Set multiple buttons with the specified texts and default
