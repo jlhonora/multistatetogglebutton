@@ -124,7 +124,7 @@ public class MultiStateToggleButton extends ToggleButton {
         }
         mainLayout.removeAllViews();
 
-        this.buttons = new ArrayList<>();
+        this.buttons = new ArrayList<>(elementCount);
         for (int i = 0; i < elementCount; i++) {
             Button b;
             if (i == 0) {
