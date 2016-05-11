@@ -293,9 +293,9 @@ public class MultiStateToggleButton extends ToggleButton {
         }
         button.setSelected(selected);
         button.setBackgroundResource(selected ? R.drawable.button_pressed : R.drawable.button_not_pressed);
-        if (colorNotPressed != 0 || colorPressed != 0) {
+        if (colorPressed != 0 || colorNotPressed != 0) {
             button.setBackgroundColor(selected ? colorPressed : colorNotPressed);
-        } else if(colorNotPressedBackground != 0 || colorNotPressedBackground != 0) {
+        } else if (colorPressedBackground != 0 || colorNotPressedBackground != 0) {
           button.setBackgroundColor(selected ? colorPressedBackground : colorNotPressedBackground);
         }
         if (button instanceof Button) {
@@ -303,10 +303,10 @@ public class MultiStateToggleButton extends ToggleButton {
             ((AppCompatButton) button).setTextAppearance(this.getContext(), style);
             if (colorPressed != 0 || colorNotPressed != 0) {
                 ((AppCompatButton) button).setTextColor(!selected ? colorPressed : colorNotPressed);
-            } else if(colorPressedText != 0 || colorNotPressedText != 0) {
+            } else if (colorPressedText != 0 || colorNotPressedText != 0) {
               ((AppCompatButton) button).setTextColor(selected ? colorPressedText : colorNotPressedText);
             }
-            if(pressedBackgroundResource != 0 || notPressedBackgroundResource != 0) {
+            if (pressedBackgroundResource != 0 || notPressedBackgroundResource != 0) {
               button.setBackgroundResource(selected ? pressedBackgroundResource : notPressedBackgroundResource);
             }
         }
