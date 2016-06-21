@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -60,7 +61,12 @@ public class MultiStateToggleButton extends ToggleButton {
             colorNotPressedText = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedText, 0);
             colorNotPressedBackground = a.getColor(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackground, 0);
             notPressedBackgroundResource = a.getResourceId(R.styleable.MultiStateToggleButton_mstbColorNotPressedBackgroundResource, 0);
-            setElements(texts, null, new boolean[texts.length]);
+
+            int length = 0;
+            if (texts != null) {
+                length = texts.length;
+            }
+            setElements(texts, null, new boolean[length]);
         } finally {
             a.recycle();
         }
@@ -116,18 +122,17 @@ public class MultiStateToggleButton extends ToggleButton {
      * @param imageResourceIds an optional icon to show, either text, icon or both needs to be set.
      * @param selected         The default value for the buttons
      */
-    public void setElements(CharSequence[] texts, int[] imageResourceIds, boolean[] selected) {
+    public void setElements(@Nullable CharSequence[] texts, int[] imageResourceIds, boolean[] selected) {
         this.texts = texts;
         final int textCount = texts != null ? texts.length : 0;
         final int iconCount = imageResourceIds != null ? imageResourceIds.length : 0;
         final int elementCount = Math.max(textCount, iconCount);
         if (elementCount == 0) {
-            throw new IllegalArgumentException("neither texts nor images are setup");
+            return;
         }
 
         boolean enableDefaultSelection = true;
         if (selected == null || elementCount != selected.length) {
-            Log.d(TAG, "Invalid selection array");
             enableDefaultSelection = false;
         }
 
@@ -196,7 +201,7 @@ public class MultiStateToggleButton extends ToggleButton {
     public void setButtons(View[] buttons, boolean[] selected) {
         final int elementCount = buttons.length;
         if (elementCount == 0) {
-            throw new IllegalArgumentException("neither texts nor images are setup");
+            return;
         }
 
         boolean enableDefaultSelection = true;
