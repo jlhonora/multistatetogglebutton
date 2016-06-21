@@ -10,6 +10,7 @@ A simple multi-state toggle button for Android.
 ## To-Do ##
 
 - Support Material Design's button shadow.
+- Implement basic testing
 
 Any help is appreciated :)
 
@@ -17,7 +18,7 @@ Any help is appreciated :)
 
 ```
 dependencies {
-    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.1'
+    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.2'
 }
 ```
 
@@ -37,7 +38,7 @@ Then in your activity's XML:
 		android:layout_marginTop="10dip"
 		mstb:values="@array/planets_array"
 		mstb:mstbPrimaryColor="@color/gray"
-        mstb:mstbSecondaryColor="@color/blue"/>
+    mstb:mstbSecondaryColor="@color/blue"/>
 </LinearLayout>
 ```
 
