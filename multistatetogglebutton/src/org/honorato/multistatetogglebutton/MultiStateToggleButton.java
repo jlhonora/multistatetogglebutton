@@ -308,7 +308,8 @@ public class MultiStateToggleButton extends ToggleButton {
             ((AppCompatButton) button).setTextAppearance(this.getContext(), style);
             if (colorPressed != 0 || colorNotPressed != 0) {
                 ((AppCompatButton) button).setTextColor(!selected ? colorPressed : colorNotPressed);
-            } else if (colorPressedText != 0 || colorNotPressedText != 0) {
+            } 
+            if (colorPressedText != 0 || colorNotPressedText != 0) {
               ((AppCompatButton) button).setTextColor(selected ? colorPressedText : colorNotPressedText);
             }
             if (pressedBackgroundResource != 0 || notPressedBackgroundResource != 0) {
