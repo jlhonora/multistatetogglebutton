@@ -329,19 +329,13 @@ public class MultiStateToggleButton extends ToggleButton {
 
     public void setValue(int position) {
         for (int i = 0; i < this.buttons.size(); i++) {
-            if (mMultipleChoice) {
-                if (i == position) {
-                    View b = buttons.get(i);
-                    if (b != null) {
-                        setButtonState(b, !b.isSelected());
-                    }
+            if (i == position) {
+                View b = buttons.get(i);
+                if (b != null) {
+                    setButtonState(b, !b.isSelected());
                 }
-            } else {
-                if (i == position) {
-                    setButtonState(buttons.get(i), true);
-                } else if (!mMultipleChoice) {
-                    setButtonState(buttons.get(i), false);
-                }
+            } else if (!mMultipleChoice) {
+                setButtonState(buttons.get(i), false);
             }
         }
         super.setValue(position);
