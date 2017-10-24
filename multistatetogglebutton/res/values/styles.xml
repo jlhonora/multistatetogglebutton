@@ -24,7 +24,6 @@
 
     <style name="PrimaryNormalText" parent="@android:style/Widget.TextView">
         <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="ToggleStyle">
