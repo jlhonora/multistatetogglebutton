@@ -10,21 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+    <org.honorato.multistatetogglebutton.androidx.MultiStateToggleButton
         android:id="@+id/mstb_multi_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         mstb:values="@array/planets_array" />
 
-    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+    <org.honorato.multistatetogglebutton.androidx.MultiStateToggleButton
         android:id="@+id/mstb_multi2_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         mstb:values="@array/dogs_array" />
 
-    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+    <org.honorato.multistatetogglebutton.androidx.MultiStateToggleButton
         android:id="@+id/mstb_multi3_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

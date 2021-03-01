@@ -1,11 +1,11 @@
-package org.honorato.multistatetogglebutton;
+package org.honorato.multistatetogglebutton.androidx;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatButton;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import org.honorato.multistatetogglebutton.R;
 
 import java.util.ArrayList;
 import java.util.List;

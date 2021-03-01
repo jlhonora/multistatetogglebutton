@@ -1,13 +1,22 @@
 package org.honorato.multistatetogglebuttonexample;
 
 import android.app.Application;
-import android.test.ApplicationTestCase;
+
+
+import org.junit.Test;
+
+import androidx.core.content.ContextCompat;
+import androidx.test.platform.app.InstrumentationRegistry;
+
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class ApplicationTest {
+
+    @Test
+    public void ApplicationTest() {
+
+        //TODO do the actual tests!
     }
 }
